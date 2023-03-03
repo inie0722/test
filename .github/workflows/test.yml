@@ -1,14 +1,28 @@
-on: push
-name: Build and release on push
+---
+name: "pre-release"
+
+on:
+  push:
+    branches:
+      - "master"
+
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
+
     steps:
-      - name: Release
-        uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/test/')
-        env:
-          GHR_COMPRESS: xz
-          GHR_PATH: README.md
-          GITHUB_TOKEN: ${{ secrets.TEST }}
+      # ...
+      - name: "Build & test"
+        run: |
+          echo "done!"
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            README.md
+            *.jar
