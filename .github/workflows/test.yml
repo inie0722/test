@@ -19,6 +19,7 @@ jobs:
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
+          repository: "inie0722/test2"
           repo_token: "${{ secrets.TEST }}"
           automatic_release_tag: "test"
           prerelease: true
