@@ -1,0 +1,14 @@
+on: push
+name: Build and release on push
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: fnkr/github-action-ghr@v1
+        if: startsWith(github.ref, 'refs/test/')
+        env:
+          GHR_COMPRESS: xz
+          GHR_PATH: README.md
+          GITHUB_TOKEN: ${{ secrets.TEST }}
